@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ResultItem from './components/ResultItem';
-import {parseResponse} from './helpers/Parsers';
+import Loading from './components/Loading';
+import { parseResponse } from './helpers/Parsers';
 import './App.css';
 import axios from 'axios';
 
@@ -14,34 +15,36 @@ class App extends Component {
     openResults: false,
     currentIndex: -1,
     selectedLocation: '',
-    userInput: ''
+    userInput: '',
+    isLoading: false
   }
 
   inputRef = null;
 
   componentDidMount() {
     document.addEventListener('click', (e) => {
-      if(e.target !== this.inputRef) {
-        this.setState({openResults: false});
+      if (e.target !== this.inputRef) {
+        this.setState({ openResults: false });
       }
     })
   }
 
   getData = (searchTerm) => {
+    this.setState({ isLoading: true })
     axios(`https://www.rentalcars.com/FTSAutocomplete.do?solrIndex=fts_en&solrRows=${NUMBER_OF_RESULTS}&solrTerm=${searchTerm}`)
       .then(res => {
         console.log(res);
-        this.setState({ data: parseResponse(res.data.results.docs), openResults: true });
+        this.setState({ data: parseResponse(res.data.results.docs), openResults: true, isLoading: false });
       }).catch((err) => {
         console.log('An error has occurred:', err);
-        this.setState({ hasError: true });
+        this.setState({ hasError: true, isLoading: false });
       });
   }
 
   handleInput = (e) => {
     const value = e.target.value;
 
-    this.setState({userInput: value});
+    this.setState({ userInput: value });
 
     if (value.length <= 1) {
       this.setState({ data: [] });
@@ -52,9 +55,8 @@ class App extends Component {
   }
 
   handleFocus = (e) => {
-    e.stopPropagation();
-    const {userInput, selectedLocation, data} = this.state;
-    this.setState({ openResults: Boolean(data.length), selectedLocation: userInput ? userInput : selectedLocation});
+    const { userInput, selectedLocation, data } = this.state;
+    this.setState({ openResults: Boolean(data.length), selectedLocation: userInput ? userInput : selectedLocation });
   }
 
   handleBlur = () => {
@@ -64,8 +66,7 @@ class App extends Component {
 
   handleKeyDown = (e) => {
     const keyCode = e.which || e.keyCode || e.charCode;
-    const {data, currentIndex} = this.state;
-    console.log('keyCode', keyCode)
+    const { data, currentIndex } = this.state;
 
     // down
     if (keyCode === 40 && data) {
@@ -89,14 +90,14 @@ class App extends Component {
     }
   }
 
-  handleOnChange = (e) =>{
+  handleOnChange = (e) => {
     console.log('handleChange');
     const value = e.target.value;
-    this.setState({selectedLocation: value})
+    this.setState({ selectedLocation: value })
   }
 
   selectValue = () => {
-    const {data, currentIndex} = this.state;
+    const { data, currentIndex } = this.state;
     const newSelectedLocation = `${data[currentIndex].name}, ${data[currentIndex].location}`;
     this.setState({
       selectedLocation: newSelectedLocation,
@@ -106,28 +107,45 @@ class App extends Component {
   }
 
   handleMouseEnter = (index) => {
-    this.setState({currentIndex: index});
+    this.setState({ currentIndex: index });
+  }
+
+  handleInputClick = () => {
+    const { userInput, selectedLocation, data } = this.state;
+    this.setState({ openResults: Boolean(data.length), selectedLocation: userInput ? userInput : selectedLocation });
   }
 
   render() {
-    const { data, currentIndex, selectedLocation, openResults} = this.state;
+    const { data, currentIndex, selectedLocation, openResults, isLoading } = this.state;
 
     return (
       <div className="App">
         <div className="main__container">
-          <div className="input__container">
-            <input
-              placeholder='Search for location...'
-              onInput={this.handleInput}
-              onFocus={this.handleFocus}
-              onBlur={this.handleBlur}
-              onKeyDown={this.handleKeyDown}
-              onChange={this.handleOnChange}
-              value={selectedLocation}
-              ref={e => this.inputRef = e}
-            />
+          <div className="main__row">
+            <h1 className="main__title">Let's find your ideal car</h1>
+          </div>
+
+          <div className="main__row">
+            <label htmlFor="input__item" className="label">Pick-up Location</label>
+            <div className="input__container">
+              <input
+                placeholder='city, airport, station, region, district…'
+                onInput={this.handleInput}
+                onFocus={this.handleFocus}
+                onBlur={this.handleBlur}
+                onKeyDown={this.handleKeyDown}
+                onChange={this.handleOnChange}
+                onClick={this.handleInputClick}
+                value={selectedLocation}
+                ref={e => this.inputRef = e}
+                type="text"
+                className="input__item"
+                id="input__item"
+              />
+             {isLoading ? <Loading /> : null}
+            </div>
             <ul className="results__container">
-              {data.length && openResults?
+              {data.length && openResults ?
                 data.map((result, i) => {
                   return (
                     <ResultItem

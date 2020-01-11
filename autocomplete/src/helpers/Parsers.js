@@ -15,7 +15,6 @@ function parsePlaceType(placeType) {
     }
 }
 
-
 export function parseResponse(results) {
     try {
         return results.map(result => {
@@ -38,7 +37,8 @@ export function parseResponse(results) {
             return {
                 name,
                 placeType,
-                location: location.join(', ')
+                location: location.join(', '),
+                locationId: result.locationId
             }
 
         });
