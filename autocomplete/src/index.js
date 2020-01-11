@@ -1,4 +1,4 @@
-//support for ie10
+// support for ie9, ie10 and ie11
 import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/stable';
 
