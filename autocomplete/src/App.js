@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ResultItem from './components/ResultItem';
 import Loading from './components/Loading';
 import { parseResponse } from './helpers/Parsers';
-import './App.css';
+import './styles/styles.css';
 import axios from 'axios';
 
 const NUMBER_OF_RESULTS = 6;
