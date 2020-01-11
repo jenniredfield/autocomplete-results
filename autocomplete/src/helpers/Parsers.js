@@ -1,5 +1,4 @@
 function parsePlaceType(placeType) {
-
     switch (placeType) {
         case 'T': {
             return 'Station'
@@ -19,15 +18,19 @@ function parsePlaceType(placeType) {
 
 export function parseResponse(results) {
     try {
-
         return results.map(result => {
             const name = `${result.name}${result.iata ? ` (${result.iata})` : ''}`;
             const placeType = parsePlaceType(result.placeType);
             const location = [];
-            
+
+            if(result.city) {
+                location.push(result.city);
+            }
+
             if(result.region) {
                 location.push(result.region);
             }
+
             if(result.country) {
                 location.push(result.country);
             }
@@ -38,9 +41,7 @@ export function parseResponse(results) {
                 location: location.join(', ')
             }
 
-        })
-
-
+        });
     } catch(err) {
         console.log('There was an error parsing');
         throw err;
