@@ -6,6 +6,10 @@ import './styles/styles.css';
 import axios from 'axios';
 
 const NUMBER_OF_RESULTS = 6;
+// make tests
+// check mobile styling
+// add accessibility arias
+
 
 class App extends Component {
 
@@ -16,7 +20,8 @@ class App extends Component {
     currentIndex: -1,
     selectedLocation: '',
     userInput: '',
-    isLoading: false
+    isLoading: false,
+    hasSelectedValue: false
   }
 
   inputRef = null;
@@ -59,13 +64,9 @@ class App extends Component {
     this.setState({ openResults: Boolean(data.length), selectedLocation: userInput ? userInput : selectedLocation });
   }
 
-  handleBlur = () => {
-    // maybe change this to document click event, remove focus
-    // this.setState({ hasFocus: false });
-  }
-
   handleKeyDown = (e) => {
     const keyCode = e.which || e.keyCode || e.charCode;
+    console.log('keyCode', keyCode)
     const { data, currentIndex } = this.state;
 
     // down
@@ -73,6 +74,11 @@ class App extends Component {
       if (currentIndex === data.length - 1) {
         return;
       }
+      if(this.state.hasSelectedValue) {
+        this.setState({ currentIndex: currentIndex + 1, userInput: '', selectedLocation: '', hasSelectedValue: false, openResults: true});
+        return;
+      }
+
       this.setState({ currentIndex: currentIndex + 1 });
     }
 
@@ -88,6 +94,10 @@ class App extends Component {
     if (keyCode === 13 && currentIndex > -1) {
       this.selectValue();
     }
+    //handle backspace when has selected value
+    if(keyCode === 8 && this.state.hasSelectedValue) {
+      this.setState({userInput: '', selectedLocation: '', hasSelectedValue: false, openResults: true})
+    }
   }
 
   handleOnChange = (e) => {
@@ -102,7 +112,8 @@ class App extends Component {
     this.setState({
       selectedLocation: newSelectedLocation,
       openResults: false,
-      currentIndex: -1
+      currentIndex: -1,
+      hasSelectedValue: true,
     });
   }
 
@@ -117,7 +128,9 @@ class App extends Component {
 
   render() {
     const { data, currentIndex, selectedLocation, openResults, isLoading } = this.state;
-
+    console.log('selected name', this.state.selectedLocation);
+    console.log('current index', this.state.currentIndex);
+    console.log('current index', this.state.data);
     return (
       <div className="App">
         <div className="main__container">
@@ -132,7 +145,6 @@ class App extends Component {
                 placeholder='city, airport, station, region, district…'
                 onInput={this.handleInput}
                 onFocus={this.handleFocus}
-                onBlur={this.handleBlur}
                 onKeyDown={this.handleKeyDown}
                 onChange={this.handleOnChange}
                 onClick={this.handleInputClick}
