@@ -1,4 +1,38 @@
+
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
-  font-family: sans-serif;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.main__container {
+  width: 70%;
+  max-width: 500px;
+  height: 480px;
+  border-radius:7px;
+  background: #f3ce56;
+  margin-top: 100px;
+}
+
+.input__container {
+  width: 100%;
+}
+
+.result__item {
+  display: flex;
+}
+
+.result__placetype-container {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.result__location-row {
+  display: flex;
 }
