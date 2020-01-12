@@ -143,7 +143,7 @@ class App extends Component {
                 handleFocus={this.handleFocus}
                 handleKeyDown={this.handleKeyDown}
                 handleOnChange={this.handleOnChange}
-                onClick={this.handleInputClick}
+                handleInputClick={this.handleInputClick}
                 selectedLocation={selectedLocation}
                 ref={this.inputRef}
               />

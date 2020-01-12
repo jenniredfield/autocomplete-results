@@ -10,7 +10,7 @@ function parsePlaceType(placeType) {
             return 'Airport'
         }
         default: {
-            return 'City'
+            return ''
         }
     }
 }
