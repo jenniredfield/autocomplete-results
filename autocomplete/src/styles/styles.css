@@ -161,3 +161,9 @@ body {
 .aria-instruction {
   display: none;
 }
+
+.input__error {
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+}

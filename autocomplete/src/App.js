@@ -126,7 +126,7 @@ class App extends Component {
   }
 
   render() {
-    const { data, currentIndex, selectedLocation, openResults, isLoading } = this.state;
+    const { data, currentIndex, selectedLocation, openResults, isLoading, hasError } = this.state;
 
     return (
       <div className="App">
@@ -150,6 +150,7 @@ class App extends Component {
               {isLoading ? <Loading /> : null}
               <span className="aria-instruction" id="location-input-description">This input is used for searching locations where you can pick up your car from. 
               You can use keyboard arrows up and dowwn to navigate through the dropdown menu, hit enter or click to select an option.</span>
+             {hasError ? <p className="input__error">An error occurred while fetching your results. Please check your internet connection or try later.</p> : null}
             </div>
             <ul className="results__container">
               {data.length && openResults ?
