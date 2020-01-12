@@ -9,6 +9,9 @@ function parsePlaceType(placeType) {
         case 'A': {
             return 'Airport'
         }
+        case 'D': {
+            return 'District'
+        }
         default: {
             return ''
         }

@@ -20,10 +20,10 @@ body {
 .main__container {
   width: 90%;
   max-width: 500px;
-  height: 200px;
+  height: 170px;
   border-radius:7px;
   background: #f3ce56;
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
 .main__row {
@@ -127,6 +127,10 @@ body {
   background: rgb(150, 20, 18);
 }
 
+.district {
+  background: rgb(1, 124, 68);
+}
+
 .result__location-row {
   display: flex;
   font-size: 14px;
@@ -166,4 +170,11 @@ body {
   color: red;
   font-size: 12px;
   margin-top: 10px;
+}
+
+@media only screen and (min-width: 1024px)  {
+  .main__container {
+    margin-top: 100px;
+    height: 200px;
+  }
 }
