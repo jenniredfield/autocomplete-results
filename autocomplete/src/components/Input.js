@@ -15,7 +15,9 @@ const Input = React.forwardRef((props , ref) => {
         className="input__item"
         id="input__item"
         ref={ref}
-        aria-describedby={"location-input-description"}
+        aria-describedby="location-input-description"
+        aria-labelledby="label-for-location-input"
+        aria-haspopup="listbox"
     />)
 });
 

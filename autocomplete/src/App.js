@@ -102,7 +102,6 @@ class App extends Component {
   }
 
   handleOnChange = (e) => {
-    console.log('handleChange');
     const value = e.target.value;
     this.setState({ selectedLocation: value })
   }
@@ -113,7 +112,6 @@ class App extends Component {
     this.setState({
       selectedLocation: newSelectedLocation,
       openResults: false,
-      currentIndex: -1,
       hasSelectedValue: true,
     });
   }
@@ -138,7 +136,7 @@ class App extends Component {
           </div>
 
           <div className="main__row">
-            <label htmlFor="input__item" className="label">Pick-up Location</label>
+            <label htmlFor="input__item" className="label" id="label-for-location-input">Pick-up Location</label>
             <div className="input__container">
               <Input
                 handleInput={this.handleInput}
@@ -154,7 +152,7 @@ class App extends Component {
               You can use keyboard arrows up and dowwn to navigate through the dropdown menu, hit enter or click to select an option.</span>
              {hasError ? <p className="input__error">An error occurred while fetching your results. Please check your internet connection or try later.</p> : null}
             </div>
-            <ul className="results__container">
+            <ul className="results__container" role="listbox" aria-activedescendant={`${currentIndex}`}>
               {data.length && openResults ?
                 data.map((result, i) => {
                   return (

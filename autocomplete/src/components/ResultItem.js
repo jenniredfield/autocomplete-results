@@ -11,6 +11,7 @@ const ResultItem = ({ result, index, currentIndex, handleMouseEnter, selectValue
                     className={containerClassnames}
                     onMouseEnter={() => handleMouseEnter(index)}
                     onClick={selectValue}
+                    role="option"
                     >
                     <div className="result__placetype-container">
                         <PlaceType placeType={result.placeType}/>
@@ -23,7 +24,6 @@ const ResultItem = ({ result, index, currentIndex, handleMouseEnter, selectValue
                         <div className="result__location-row">
                             <p>{result.location}</p>
                         </div>
-               
                     </div>
                 </li>
             );
