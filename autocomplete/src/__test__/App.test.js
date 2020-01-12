@@ -70,6 +70,5 @@ describe('App', () => {
   });
 
     expect(wrapper.find(".results__container").children().length).toBe(6);
-
   });
 });

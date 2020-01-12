@@ -13,4 +13,10 @@ describe('Input', () => {
     wrapper.simulate('input');
     expect(mockFn).toHaveBeenCalled();
   });
+  it('Should call handleOnChange function', () => {
+    const mockFn = jest.fn()
+    const wrapper = shallow(<Input handleOnChange={mockFn}/>);
+    wrapper.simulate('change');
+    expect(mockFn).toHaveBeenCalled();
+  });
 });

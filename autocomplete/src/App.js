@@ -39,7 +39,6 @@ class App extends Component {
     this.setState({ isLoading: true })
     axios(`https://www.rentalcars.com/FTSAutocomplete.do?solrIndex=fts_en&solrRows=${NUMBER_OF_RESULTS}&solrTerm=${searchTerm}`)
       .then(res => {
-        console.log(res);
         this.setState({ data: parseResponse(res.data.results.docs), openResults: true, isLoading: false });
       }).catch((err) => {
         console.log('An error has occurred:', err);
@@ -67,7 +66,6 @@ class App extends Component {
 
   handleKeyDown = (e) => {
     const keyCode = e.which || e.keyCode || e.charCode;
-    console.log('keyCode', keyCode)
     const { data, currentIndex } = this.state;
 
     // down
@@ -129,9 +127,7 @@ class App extends Component {
 
   render() {
     const { data, currentIndex, selectedLocation, openResults, isLoading } = this.state;
-    console.log('selected name', this.state.selectedLocation);
-    console.log('current index', this.state.currentIndex);
-    console.log('current index', this.state.data);
+
     return (
       <div className="App">
         <div className="main__container">
@@ -152,6 +148,8 @@ class App extends Component {
                 ref={this.inputRef}
               />
               {isLoading ? <Loading /> : null}
+              <span className="aria-instruction" id="location-input-description">This input is used for searching locations where you can pick up your car from. 
+              You can use keyboard arrows up and dowwn to navigate through the dropdown menu, hit enter or click to select an option.</span>
             </div>
             <ul className="results__container">
               {data.length && openResults ?
