@@ -44,6 +44,7 @@ class App extends Component {
         this.setState({ data: parseResponse(res.data.results.docs), openResults: true, isLoading: false });
       }).catch((err) => {
         console.log('An error has occurred:', err);
+        console.log('CATCH')
         this.setState({ hasError: true, isLoading: false });
       });
   }
