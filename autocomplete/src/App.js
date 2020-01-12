@@ -7,10 +7,12 @@ import './styles/styles.css';
 import axios from 'axios';
 
 const NUMBER_OF_RESULTS = 6;
+
 // make tests
 // check mobile styling
 // add accessibility arias
-
+// remove console logs
+// add linter
 
 class App extends Component {
 
@@ -168,7 +170,6 @@ class App extends Component {
                 : null}
             </ul>
           </div>
-
         </div>
       </div>
     );
