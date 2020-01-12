@@ -8,12 +8,6 @@ import axios from 'axios';
 
 const NUMBER_OF_RESULTS = 6;
 
-// make tests
-// check mobile styling
-// add accessibility arias
-// remove console logs
-// add linter
-
 class App extends Component {
 
   state = {
@@ -44,7 +38,6 @@ class App extends Component {
         this.setState({ data: parseResponse(res.data.results.docs), openResults: true, isLoading: false });
       }).catch((err) => {
         console.log('An error has occurred:', err);
-        console.log('CATCH')
         this.setState({ hasError: true, isLoading: false });
       });
   }
@@ -96,6 +89,7 @@ class App extends Component {
     if (keyCode === 13 && currentIndex > -1) {
       this.selectValue();
     }
+    
     //handle backspace when has selected value
     if (keyCode === 8 && this.state.hasSelectedValue) {
       this.setState({ userInput: '', selectedLocation: '', hasSelectedValue: false, openResults: true })
