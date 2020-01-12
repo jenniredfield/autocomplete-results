@@ -145,14 +145,15 @@ class App extends Component {
                 handleOnChange={this.handleOnChange}
                 handleInputClick={this.handleInputClick}
                 selectedLocation={selectedLocation}
+                currentIndex={currentIndex}
                 ref={this.inputRef}
               />
               {isLoading ? <Loading /> : null}
               <span className="aria-instruction" id="location-input-description">This input is used for searching locations where you can pick up your car from. 
-              You can use keyboard arrows up and dowwn to navigate through the dropdown menu, hit enter or click to select an option.</span>
+              You can use keyboard arrows up and down to navigate through the dropdown menu to hear the options, hit enter or click to select an option.</span>
              {hasError ? <p className="input__error">An error occurred while fetching your results. Please check your internet connection or try later.</p> : null}
             </div>
-            <ul className="results__container" role="listbox" aria-activedescendant={`option_${currentIndex}`} tabIndex={0}>
+            <ul className="results__container" role="listbox">
               {data.length && openResults ?
                 data.map((result, i) => {
                   return (

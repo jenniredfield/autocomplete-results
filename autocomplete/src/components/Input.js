@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Input = React.forwardRef((props , ref) => {
-    const {handleInput, handleFocus, handleKeyDown, handleOnChange, handleInputClick, selectedLocation} = props;
+    const {handleInput, handleFocus, handleKeyDown, handleOnChange, handleInputClick, selectedLocation, currentIndex} = props;
     
     return (<input
         placeholder='city, airport, station, region, district…'
@@ -18,6 +18,8 @@ const Input = React.forwardRef((props , ref) => {
         aria-describedby="location-input-description"
         aria-labelledby="label-for-location-input"
         aria-haspopup="listbox"
+        aria-activedescendant={`option_${currentIndex}`}
+        tabIndex={0}
     />)
 });
 
