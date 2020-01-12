@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ResultItem from './components/ResultItem';
 import Loading from './components/Loading';
+import Input from './components/Input';
 import { parseResponse } from './helpers/Parsers';
 import './styles/styles.css';
 import axios from 'axios';
@@ -24,11 +25,11 @@ class App extends Component {
     hasSelectedValue: false
   }
 
-  inputRef = null;
+  inputRef = React.createRef();;
 
   componentDidMount() {
     document.addEventListener('click', (e) => {
-      if (e.target !== this.inputRef) {
+      if (e.target !== this.inputRef.current) {
         this.setState({ openResults: false });
       }
     })
@@ -74,8 +75,8 @@ class App extends Component {
       if (currentIndex === data.length - 1) {
         return;
       }
-      if(this.state.hasSelectedValue) {
-        this.setState({ currentIndex: currentIndex + 1, userInput: '', selectedLocation: '', hasSelectedValue: false, openResults: true});
+      if (this.state.hasSelectedValue) {
+        this.setState({ currentIndex: currentIndex + 1, userInput: '', selectedLocation: '', hasSelectedValue: false, openResults: true });
         return;
       }
 
@@ -95,8 +96,8 @@ class App extends Component {
       this.selectValue();
     }
     //handle backspace when has selected value
-    if(keyCode === 8 && this.state.hasSelectedValue) {
-      this.setState({userInput: '', selectedLocation: '', hasSelectedValue: false, openResults: true})
+    if (keyCode === 8 && this.state.hasSelectedValue) {
+      this.setState({ userInput: '', selectedLocation: '', hasSelectedValue: false, openResults: true })
     }
   }
 
@@ -141,20 +142,16 @@ class App extends Component {
           <div className="main__row">
             <label htmlFor="input__item" className="label">Pick-up Location</label>
             <div className="input__container">
-              <input
-                placeholder='city, airport, station, region, district…'
-                onInput={this.handleInput}
-                onFocus={this.handleFocus}
-                onKeyDown={this.handleKeyDown}
-                onChange={this.handleOnChange}
+              <Input
+                handleInput={this.handleInput}
+                handleFocus={this.handleFocus}
+                handleKeyDown={this.handleKeyDown}
+                handleOnChange={this.handleOnChange}
                 onClick={this.handleInputClick}
-                value={selectedLocation}
-                ref={e => this.inputRef = e}
-                type="text"
-                className="input__item"
-                id="input__item"
+                selectedLocation={selectedLocation}
+                ref={this.inputRef}
               />
-             {isLoading ? <Loading /> : null}
+              {isLoading ? <Loading /> : null}
             </div>
             <ul className="results__container">
               {data.length && openResults ?

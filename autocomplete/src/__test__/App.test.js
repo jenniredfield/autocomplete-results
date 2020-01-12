@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow, render, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import axios from 'axios';
+// import axios from 'axios';
 import App from '../App';
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -23,7 +23,7 @@ describe('App', () => {
     const wrapper = shallow(<App />);
     expect(wrapper.find(".input__item")).toBeDefined();
   });
-  it('The result container to have 6 elements upon state change', () => {
+  it('The result container to have children upon data and openResults state change', () => {
     const wrapper = shallow(<App />);
  
     expect(wrapper.find(".results__container").children().length).toBe(0);
@@ -71,6 +71,5 @@ describe('App', () => {
 
     expect(wrapper.find(".results__container").children().length).toBe(6);
 
-    wrapper.unmount();
   });
-})
+});
