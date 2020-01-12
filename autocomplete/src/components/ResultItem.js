@@ -3,8 +3,9 @@ import PlaceType from './PlaceType';
 import cx from 'classnames';
 
 const ResultItem = ({ result, index, currentIndex, handleMouseEnter, selectValue}) => {
+        const isSelected = Boolean(index === currentIndex)
         const containerClassnames = cx("result__item", {
-            "result__item--active": index === currentIndex
+            "result__item--active": isSelected
         });
             return (
                 <li
@@ -12,6 +13,8 @@ const ResultItem = ({ result, index, currentIndex, handleMouseEnter, selectValue
                     onMouseEnter={() => handleMouseEnter(index)}
                     onClick={selectValue}
                     role="option"
+                    aria-selected={isSelected}
+                    id={`option_${index}`}
                     >
                     <div className="result__placetype-container">
                         <PlaceType placeType={result.placeType}/>

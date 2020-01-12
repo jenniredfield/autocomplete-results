@@ -152,7 +152,7 @@ class App extends Component {
               You can use keyboard arrows up and dowwn to navigate through the dropdown menu, hit enter or click to select an option.</span>
              {hasError ? <p className="input__error">An error occurred while fetching your results. Please check your internet connection or try later.</p> : null}
             </div>
-            <ul className="results__container" role="listbox" aria-activedescendant={`${currentIndex}`}>
+            <ul className="results__container" role="listbox" aria-activedescendant={`option_${currentIndex}`} tabIndex={0}>
               {data.length && openResults ?
                 data.map((result, i) => {
                   return (
